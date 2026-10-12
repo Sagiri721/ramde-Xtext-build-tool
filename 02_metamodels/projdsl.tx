@@ -1,0 +1,39 @@
+ReqModel:
+    'ReqModel' name=EString
+    '{'
+        ('has' '{' has+=Requirement[','] '}')?
+        ('risks' '{' risks+=Risk[','] '}')?
+    '}'
+;
+
+Requirement:
+    'Requirement' name=EString
+    '{'
+        ('description' description=EString)?
+        ('status' status=RequirementStatus)?
+        ('priority' priority=RequirementPriority)?
+        ('verificationMethod' verificationMethod=VerificationMethod)?
+        ('type' type=RequirementType)?
+        ('author' author=EString)?
+        ('risk' risk=RequirementRisk)?
+        ('requirement' '(' requirement+=[Requirement|EString][','] ')')?
+        ('mitigates' '(' mitigates+=[Risk|EString][','] ')')?
+    '}'
+;
+
+Risk:
+    'Risk' name=EString
+    '{'
+        ('description' description=EString)?
+    '}'
+;
+
+RequirementStatus:   'DRAFT' | 'REVIEW' | 'APPROVED' | 'REJECTED';
+RequirementPriority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+VerificationMethod:  'ANALISYS' | 'DEMONSTRATION' | 'INSPECTION' | 'TEST';
+RequirementType:     'FUNCTIONALITY' | 'USABILITY' | 'RELIABILITY' | 'SUPORTABILITY' | 'LEGAL';
+RequirementRisk:     'LOW' | 'MEDIUM' | 'HIGH';
+
+EString: STRING | ID;
+
+Comment: /\/\/.*?$/ | /\/\*(.|\n)*?\*\//;

@@ -1,0 +1,53 @@
+ReqModel AutonomousVehicle {
+	has {
+		Requirement REQ01_CollisionAvoidance {
+			description "The vehicle shall execute autonomous emergency braking upon obstacle detection within safety threshold."
+			status APPROVED
+			priority CRITICAL
+			verificationMethod TEST
+			type FUNCTIONALITY
+			author "SafetyLead"
+			risk HIGH
+		},
+		Requirement REQ02_LidarSensorFusion {
+			description "The perception subsystem shall fuse LiDAR and camera telemetry at a minimum frequency of 50Hz."
+			status APPROVED
+			priority HIGH
+			verificationMethod TEST
+			type RELIABILITY
+			author "PerceptionTeam"
+			risk HIGH
+			requirement ( REQ01_CollisionAvoidance )
+		},
+		Requirement REQ03_DriverAlert {
+			description "The HMI shall present optical and acoustic warnings 1.5 seconds prior to automated intervention."
+			status REVIEW
+			priority HIGH
+			verificationMethod DEMONSTRATION
+			type USABILITY
+			author "HMITeam"
+			risk MEDIUM
+			requirement ( REQ01_CollisionAvoidance )
+		},
+		Requirement REQ04_FailSafeMode {
+			description "If redundant compute units disagree, the vehicle shall safely decelerate and stop in the current lane."
+			status APPROVED
+			priority CRITICAL
+			verificationMethod TEST
+			type RELIABILITY
+			author "SafetyLead"
+			risk HIGH
+			requirement ( REQ01_CollisionAvoidance, REQ02_LidarSensorFusion )
+		},
+		Requirement REQ05_TelemetryLogging {
+			description "All sensor and decision events shall be logged to encrypted non-volatile memory for audit compliance."
+			status DRAFT
+			priority MEDIUM
+			verificationMethod INSPECTION
+			type LEGAL
+			author "ComplianceOfficer"
+			risk LOW
+			requirement ( REQ04_FailSafeMode )
+		}
+	}
+}

@@ -1,0 +1,63 @@
+ReqModel SmartHomeSystem {
+	has {
+		Requirement REQ01_CentralControl {
+			description "The central hub shall coordinate all smart home device communication."
+			status APPROVED
+			priority CRITICAL
+			verificationMethod TEST
+			type FUNCTIONALITY
+			author "SystemArch"
+			risk HIGH
+		},
+		Requirement REQ02_AuthSecurity {
+			description "Users must authenticate via multi-factor authentication before remote access is granted."
+			status APPROVED
+			priority CRITICAL
+			verificationMethod TEST
+			type LEGAL
+			author "SecurityTeam"
+			risk HIGH
+			requirement ( REQ01_CentralControl )
+		},
+		Requirement REQ03_TempRegulation {
+			description "The thermostat shall adjust HVAC temperature according to scheduled presets."
+			status REVIEW
+			priority HIGH
+			verificationMethod DEMONSTRATION
+			type FUNCTIONALITY
+			author "ClimateTeam"
+			risk MEDIUM
+			requirement ( REQ01_CentralControl )
+		},
+		Requirement REQ04_SmokeAlert {
+			description "Upon smoke detection, the system shall trigger alarms and open smart locks within 2s."
+			status APPROVED
+			priority CRITICAL
+			verificationMethod TEST
+			type RELIABILITY
+			author "SafetyEngineer"
+			risk HIGH
+			requirement ( REQ01_CentralControl )
+		},
+		Requirement REQ05_MobileAppUI {
+			description "The mobile app shall provide real-time status monitoring with latency < 500ms."
+			status DRAFT
+			priority MEDIUM
+			verificationMethod INSPECTION
+			type USABILITY
+			author "FrontendLead"
+			risk LOW
+			requirement ( REQ02_AuthSecurity, REQ03_TempRegulation )
+		},
+		Requirement REQ06_EnergyAnalytics {
+			description "The system shall generate weekly energy consumption reports."
+			status DRAFT
+			priority LOW
+			verificationMethod ANALISYS
+			type SUPORTABILITY
+			author "AnalyticsTeam"
+			risk LOW
+			requirement ( REQ01_CentralControl )
+		}
+	}
+}

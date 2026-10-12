@@ -1,0 +1,28 @@
+reference projdsl as req
+
+UCModel:
+    'UCModel' name=EString
+    '{'
+        ('contains' '{' contains+=UseCase[','] '}')?
+        ('actor' '{' actor+=Actor[','] '}')?
+    '}'
+;
+
+UseCase:
+    'UseCase' name=EString
+    '{'
+        ('description' description=EString)?
+        ('refine' refine=[req.Requirement|EString])?
+    '}'
+;
+
+Actor:
+    'Actor' name=EString
+    '{'
+        ('acts' '(' acts+=[UseCase|EString][','] ')')?
+    '}'
+;
+
+EString: STRING | ID;
+
+Comment: /\/\/.*?$/ | /\/\*(.|\n)*?\*\//;

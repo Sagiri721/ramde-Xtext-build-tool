@@ -1,0 +1,29 @@
+// Use-case model for the ucdsl grammar.
+// Block order matters: contains { ... } first, then actor { ... } (both optional).
+UCModel OnlineShop {
+	contains {
+		UseCase Browse_Catalog {
+			description "Customer browses and searches the product catalog"
+		},
+		UseCase Place_Order {
+			description "Customer adds items to the cart and checks out"
+		},
+		UseCase Process_Payment {
+			description "Payment is authorized and captured"
+		},
+		UseCase Manage_Inventory {
+			description "Staff update stock levels and product listings"
+		}
+	}
+	actor {
+		Actor Customer {
+			acts ( Browse_Catalog, Place_Order )
+		},
+		Actor Payment_Gateway {
+			acts ( Process_Payment )
+		},
+		Actor Warehouse_Staff {
+			acts ( Manage_Inventory )
+		}
+	}
+}

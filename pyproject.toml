@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ramde"
+version = "0.1.0"
+description = "textX port of the Xtext requirements / use-case DSLs with PlantUML diagram generators"
+requires-python = ">=3.9"
+dependencies = [
+    "textx>=4.0",
+    "click>=8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+ramde = "core.cli:main"
+
+# Add textX entry points for every DSL module under src/core/data/.
+# Runtime discovery and model dispatch use src/core/dsl/registry.py.
+[project.entry-points.textx_languages]
+projdsl = "core.languages:projdsl"
+ucdsl = "core.languages:ucdsl"
+
+[project.entry-points.textx_generators]
+projdsl_plantuml = "core.generators:projdsl_plantuml"
+ucdsl_plantuml = "core.generators:ucdsl_plantuml"
+projdsl_svg = "core.generators:projdsl_svg"
+ucdsl_svg = "core.generators:ucdsl_svg"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

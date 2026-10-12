@@ -1,0 +1,36 @@
+UCModel SmartHomeUseCases {
+	contains {
+		UseCase Control_Devices {
+			description "Homeowner controls smart devices through the central hub"
+			refine "SmartHomeSystem.REQ01_CentralControl"
+		},
+		UseCase Authenticate_Remotely {
+			description "Homeowner logs in with multi-factor authentication before remote access"
+			refine "SmartHomeSystem.REQ02_AuthSecurity"
+		},
+		UseCase Schedule_Heating {
+			description "Homeowner sets thermostat presets for the HVAC system"
+			refine "SmartHomeSystem.REQ03_TempRegulation"
+		},
+		UseCase Handle_Smoke_Alarm {
+			description "Alarms sound and smart locks open when smoke is detected"
+			refine "SmartHomeSystem.REQ04_SmokeAlert"
+		},
+		UseCase Monitor_Status {
+			description "Homeowner checks real-time device status in the mobile app"
+			refine "SmartHomeSystem.REQ05_MobileAppUI"
+		},
+		UseCase View_Energy_Report {
+			description "Homeowner reads the weekly energy consumption report"
+			refine "SmartHomeSystem.REQ06_EnergyAnalytics"
+		}
+	}
+	actor {
+		Actor Homeowner {
+			acts ( Control_Devices, Authenticate_Remotely, Schedule_Heating, Monitor_Status, View_Energy_Report )
+		},
+		Actor Smoke_Detector {
+			acts ( Handle_Smoke_Alarm )
+		}
+	}
+}
